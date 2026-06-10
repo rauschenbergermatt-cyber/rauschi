@@ -1,0 +1,25 @@
+name: Wien Job Scanner
+
+on:
+  schedule:
+    - cron: '0 6 * * *'   # 08:00 Wien (UTC+2 Sommer / CEST)
+  workflow_dispatch:        # manuell auslösbar
+
+jobs:
+  send-jobs:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Python einrichten
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Pakete installieren
+        run: pip install requests beautifulsoup4
+
+      - name: Job-Scanner ausführen
+        env:
+          GMAIL_PASSWORD: ${{ secrets.GMAIL_PASSWORD }}
+        run: python job_scanner_cloud.py
