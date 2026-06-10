@@ -22,4 +22,5 @@ jobs:
       - name: Job-Scanner ausführen
         env:
           GMAIL_PASSWORD: ${{ secrets.GMAIL_PASSWORD }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
         run: python job_scanner_cloud.py
